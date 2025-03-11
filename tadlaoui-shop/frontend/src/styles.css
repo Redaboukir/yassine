@@ -1,0 +1,114 @@
+/* Auth.css */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+input {
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.google-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.google-btn {
+  background-color: #db4437;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.google-btn:hover {
+  background-color: #c1351d;
+}
+
+.google-btn span {
+  margin-right: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Centrer et ajuster les titres */
+h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* 📱 Media Queries pour écrans très petits (< 375px) */
+@media screen and (max-width: 375px) {
+  .auth-container {
+      width: 95%;
+      padding: 15px;
+  }
+
+  input, .submit-btn, .google-btn {
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  h2 {
+      font-size: 20px;
+  }
+}
