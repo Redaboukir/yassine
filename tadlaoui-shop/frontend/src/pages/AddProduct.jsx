@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const AddProduct = () => {
   const navigate = useNavigate();
   const [newProduct, setNewProduct] = useState({ name: "", price: "", description: "", image: null });
@@ -21,7 +23,7 @@ const AddProduct = () => {
     formData.append("description", newProduct.description);
     formData.append("image", newProduct.image);
 
-    const res = await fetch("http://localhost:5000/api/products", {
+    const res = await fetch(`${API_URL}/api/products`, {
       method: "POST",
       body: formData
     });

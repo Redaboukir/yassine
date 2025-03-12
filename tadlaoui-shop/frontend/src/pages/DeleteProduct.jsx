@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const DeleteProduct = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Erreur :", err));
@@ -20,9 +22,7 @@ const DeleteProduct = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`${API_URL}/api/products/${id}`, { method: "DELETE" });
 
       if (res.ok) {
         setProducts(products.filter((product) => product._id !== id));
@@ -36,9 +36,7 @@ const DeleteProduct = () => {
 
   const handleFavorite = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}/favorite`, {
-        method: "PUT",
-      });
+      const res = await fetch(`${API_URL}/api/products/${id}/favorite`, { method: "PUT" });
       const data = await res.json();
 
       if (res.ok) {
@@ -61,19 +59,16 @@ const DeleteProduct = () => {
           {products.map((product) => (
             <li key={product._id}>
               <img
-                src={`http://localhost:5000/uploads/${product.image}`}
+                src={`${API_URL}/uploads/${product.image}`}
                 alt={product.name}
                 style={{ width: "80px", height: "80px", objectFit: "cover" }}
               />
               {product.name} - {product.price}€
-              
+
               <button onClick={() => handleDelete(product._id)}>Supprimer</button>
 
               <button 
-                style={{ 
-                  background: product.isFavorite ? "gold" : "gray", 
-                  marginLeft: "10px" 
-                }}
+                style={{ background: product.isFavorite ? "gold" : "gray", marginLeft: "10px" }}
                 onClick={() => handleFavorite(product._id)}
               >
                 ⭐ {product.isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
