@@ -1,97 +1,237 @@
+/* Header */
+/* 🔹 Header */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 60px; /* Hauteur fixe */
+  background-color: #fff;
+  padding: 10px 30px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 🔹 Logo */
+.logo img {
+  height: 50px;
+}
+
+/* 🔹 Liens de navigation */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #ff5733;
+}
+
+/* 🔹 Icônes à droite */
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.right-icons img {
+  height: 30px;
+  cursor: pointer;
+}
+
+.whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: green;
+}
+
+
+/* Assurer que le carrousel prend toute la largeur */
+.carousel-container {
+  width: 100vw; /* Prend toute la largeur de l'écran */
+  margin: 0 auto;
+  position: relative; /* Nécessaire pour positionner les dots */
+  overflow: hidden;
+}
+
+/* Ajuster les images */
+.carousel-container img {
+  width: 100vw; /* Utiliser toute la largeur */
+  height: 500px; /* Ajuste la hauteur si nécessaire */
+  object-fit: cover; /* Coupe si nécessaire pour remplir l’espace */
+}
+
+/* Centrer les dots à l'intérieur de l'image */
+.slick-dots {
+  position: absolute;
+  bottom: 30px; /* Ajuste la hauteur des dots */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Modifier la couleur et la taille des dots */
+.slick-dots li button:before {
+  color: white;
+  font-size: 14px; /* Légèrement plus grand */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #ffcc00; /* Couleur du dot actif */
+}
+
+
+
+
+/* 🔹 Responsive Design pour mobile */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
   }
-  
-  /* Navigation */
+
   .navbar ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    flex-direction: column;
+    text-align: center;
   }
-  
+
   .navbar li {
-    margin-right: 20px;
+    margin: 10px 0;
   }
-  
-  .navbar a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  /* Logo au centre */
-  .logo img {
-    height: 40px; /* Taille du logo */
-  }
-  
-  /* Icônes à droite */
+
   .right-icons {
-    display: flex;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
   }
-  
+
   .right-icons img {
-    width: 28px;
-    margin-left: 15px;
-    cursor: pointer;
+    width: 24px; /* Réduction des icônes */
+    margin: 5px;
   }
-  
-  .whatsapp {
-    display: flex;
-    align-items: center;
-  }
-  
+
   .whatsapp span {
-    margin-left: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #25D366;
+    font-size: 12px;
   }
-  
-  /* 🔹 Responsive Design pour mobile */
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      height: auto;
-      padding: 10px;
-    }
-  
-    .navbar ul {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .navbar li {
-      margin: 10px 0;
-    }
-  
-    .right-icons {
-      flex-direction: row;
-      justify-content: center;
-      width: 100%;
-      margin-top: 10px;
-    }
-  
-    .right-icons img {
-      width: 24px; /* Réduction des icônes */
-      margin: 5px;
-    }
-  
-    .whatsapp span {
-      font-size: 12px;
-    }
+
+  .carousel-container {
+    margin-top: 120px; /* Ajustez la marge pour les petits écrans */
   }
-  
+
+}
+/* Conteneur des images */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  gap: 15px; /* Espace entre les images */
+  max-width: 1200px;
+  margin: 40px auto; /* Centrage et espace avec le carrousel */
+  padding: 0 20px;
+}
+
+/* Style des images */
+.image-box {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-box img {
+  width: 100%;
+  height: 200px; /* Hauteur fixe */
+  object-fit: cover; /* Coupe l’image pour bien remplir */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Effet zoom au survol */
+.image-box img:hover {
+  transform: scale(1.05);
+}
+
+/* 🔹 Responsive pour mobile */
+@media (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur mobile */
+    gap: 10px;
+  }
+
+  .image-box img {
+    height: 150px; /* Réduire la hauteur sur mobile */
+  }
+}
+.favorites-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.favorites-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ff5733;
+}
+
+.no-favorites {
+  font-size: 18px;
+  color: gray;
+}
+
+.favorites-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.favorite-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.favorite-name {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.favorite-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #27ae60;
+}

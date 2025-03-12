@@ -49,4 +49,67 @@ router.get("/", async (req, res) => {
   }
 });
 
+// 🔍 Route pour récupérer un produit par ID
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Produit non trouvé" });
+
+    res.json(product);
+  } catch (error) {
+    console.error("❌ Erreur récupération du produit:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// ✏️ Route pour modifier un produit
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, price, description } = req.body;
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      { name, price, description },
+      { new: true }
+    );
+
+    if (!updatedProduct) return res.status(404).json({ message: "Produit non trouvé" });
+
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error("❌ Erreur mise à jour du produit:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// 🗑️ Route pour supprimer un produit
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
+    if (!deletedProduct) return res.status(404).json({ message: "Produit non trouvé" });
+
+    res.json({ message: "Produit supprimé avec succès" });
+  } catch (error) {
+    console.error("❌ Erreur suppression du produit:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// ⭐ Route pour ajouter/enlever un produit des favoris
+router.put("/:id/favorite", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Produit non trouvé" });
+
+    product.isFavorite = !product.isFavorite; // Inverser l'état
+    await product.save();
+
+    res.json({ message: "Statut favori mis à jour", product });
+  } catch (error) {
+    console.error("❌ Erreur gestion du favori:", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
 export default router;

@@ -15,55 +15,72 @@ const DeleteProduct = () => {
       console.error("❌ ID du produit manquant !");
       return;
     }
-  
+
     const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce produit ?");
     if (!confirmDelete) return;
-  
+
     try {
-      console.log("🗑️ Suppression en cours de l'ID :", id);
-  
       const res = await fetch(`http://localhost:5000/api/products/${id}`, {
         method: "DELETE",
       });
-  
-      const data = await res.json();
-      console.log("Réponse du serveur :", data);
-  
+
       if (res.ok) {
         setProducts(products.filter((product) => product._id !== id));
       } else {
-        console.error("Erreur lors de la suppression :", data);
+        console.error("Erreur lors de la suppression");
       }
     } catch (err) {
       console.error("Erreur serveur :", err);
     }
   };
-  
-  
+
+  const handleFavorite = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/products/${id}/favorite`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setProducts(products.map(p => 
+          p._id === id ? { ...p, isFavorite: !p.isFavorite } : p
+        ));
+      } else {
+        console.error("Erreur favori :", data);
+      }
+    } catch (err) {
+      console.error("Erreur serveur :", err);
+    }
+  };
 
   return (
     <div>
-      <h2>❌ Supprimer un produit</h2>
+      <h2>🛠️ Gestion des Produits</h2>
       {products.length === 0 ? <p>Aucun produit disponible.</p> : (
         <ul>
-        {products.map((product) => {
-          const imagePath = `http://localhost:5000/uploads/${product.image}`;
-          console.log("Chemin de l'image :", imagePath);
-      
-          return (
+          {products.map((product) => (
             <li key={product._id}>
               <img
-                src={imagePath}
+                src={`http://localhost:5000/uploads/${product.image}`}
                 alt={product.name}
                 style={{ width: "80px", height: "80px", objectFit: "cover" }}
               />
               {product.name} - {product.price}€
+              
               <button onClick={() => handleDelete(product._id)}>Supprimer</button>
+
+              <button 
+                style={{ 
+                  background: product.isFavorite ? "gold" : "gray", 
+                  marginLeft: "10px" 
+                }}
+                onClick={() => handleFavorite(product._id)}
+              >
+                ⭐ {product.isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+              </button>
             </li>
-          );
-        })}
-      </ul>
-      
+          ))}
+        </ul>
       )}
     </div>
   );

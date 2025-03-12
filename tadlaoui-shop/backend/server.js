@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import path from "path";
 import productRoutes from "./routes/productRoutes.js";
+import contactRoutes from "./routes/contact.js";
 
 const app = express();
 import Product from './models/Product.js';
@@ -12,7 +13,7 @@ app.use(express.json()); // Pour parser le JSON des requêtes
 app.use(cors()); // Pour autoriser les requêtes du frontend
 app.use("/uploads", express.static(path.resolve("uploads"))); // Pour servir les images
 app.use("/uploads", express.static("uploads"));
-
+app.use("/contact", contactRoutes);
 // Routes
 app.use("/api/products", productRoutes);
 
@@ -45,6 +46,20 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         console.error("❌ Erreur serveur :", error);
         res.status(500).json({ message: "Erreur lors de la suppression", error });
     }
+
+    router.put("/:id/favorite", async (req, res) => {
+      try {
+        const product = await Product.findById(req.params.id);
+        if (!product) return res.status(404).json({ message: "Produit non trouvé" });
+    
+        product.isFavorite = !product.isFavorite; // Inverser l'état
+        await product.save();
+    
+        res.json({ message: "Statut favori mis à jour", product });
+      } catch (error) {
+        res.status(500).json({ message: "Erreur serveur", error });
+      }
+    });
 });
 
   

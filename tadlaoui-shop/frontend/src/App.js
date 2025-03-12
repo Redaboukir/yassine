@@ -8,6 +8,7 @@ import DeleteProduct from "./pages/DeleteProduct";
 import AddProduct from "./pages/AddProduct";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import Contact from "./pages/Contact";
 
 const PrivateRoute = ({ children }) => {
   return localStorage.getItem("adminAuth") ? children : <Navigate to="/host" />;
@@ -50,6 +51,7 @@ const App = () => {
 
         {/* Route pour le formulaire d'authentification (uniquement si déconnecté) */}
         <Route path="/" element={user ? <Navigate to="/home" /> : <AuthForm />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Routes Admin */}
         <Route path="/host" element={<AdminLogin />} />
